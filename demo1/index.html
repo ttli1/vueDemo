@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网付</title>
+</head>
+<body>
+    <div id="app">
+        <h1>欢迎来到网付平台</h1>
+        <ul>
+            <li>{{ targetSys.name }} 交易总笔数 {{ targetSys.num }} 笔</li>
+
+            <!--<li v-for="targetSys in targetSysList">-->
+                <!--{{ targetSys.name }} 交易总笔数 {{ targetSys.num }} 笔-->
+                <!--<span v-if="targetSys.num === 0">，该渠道没有交易</span>-->
+            <!--</li>-->
+
+            <!--<li v-for="targetSys in activeTargetSysList">-->
+                <!--{{ targetSys.name }} 交易总笔数 {{ targetSys.num }} 笔-->
+                <!--<button @click="++targetSys.num">发起一笔交易</button>-->
+            <!--</li>-->
+
+            <!--<li v-for="targetSys in activeTargetSysList">-->
+                <!--{{ targetSys.name }}交易总笔数 <input type="number" v-model.number="targetSys.num"> 笔-->
+                <!--<button @click="++targetSys.num">发起一笔交易</button>-->
+            <!--</li>-->
+        </ul>
+        <!--<h2>所有渠道总笔数{{ totalNum }}</h2>-->
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            targetSys: {
+                name: '微信',
+                num: 10000
+            },
+            targetSysList: [
+                {
+                    name: '微信',
+                    num: 10000
+                },
+                {
+                    name: '支付宝',
+                    num: 20000
+                },
+                {
+                    name: '云闪付',
+                    num: 30000
+                },
+                {
+                    name: '其他',
+                    num: 0
+                }
+            ]
+        },
+        computed: {
+            activeTargetSysList () {
+                return this.targetSysList.filter(function (targetSys) {
+                    return targetSys.num !== 0
+                })
+            },
+            totalNum () {
+                return this.targetSysList.reduce((total, targetSys) => {
+                    return total + targetSys.num
+                }, 0)
+            }
+        }
+    })
+</script>
+
+</html>
