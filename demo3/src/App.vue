@@ -1,7 +1,11 @@
 <template>
     <div id="app">
-        <img alt="Netpay logo" src="./assets/logo.png">
-        <Netpay headMsg="欢迎来到网付平台" targetSysName="微信" :targetSysNum="targetSysNum"/>
+        <Netpay/>
+        <p>
+            <router-link to="/merchant">商户管理</router-link>
+            <router-link to="/order">订单管理</router-link>
+        </p>
+        <router-view></router-view>
     </div>
 </template>
 
