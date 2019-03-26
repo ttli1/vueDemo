@@ -4,7 +4,10 @@
 
 <script>
     export default {
-        name: "Order"
+        name: "Order",
+        created() {
+            console.log(this.$route.path);
+        }
     }
 </script>
 
