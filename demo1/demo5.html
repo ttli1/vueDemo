@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+</head>
+<body>
+<div id="app">
+    <h3>列表</h3>
+    <ul>
+        <li v-for="item in array">{{ item.name }} - {{ item.num }}笔</li>
+    </ul>
+    <ul>
+        <li v-for="(item, index) in array">渠道{{ index }}：{{ item.name }} - {{ item.num }}笔</li>
+    </ul><hr />
+    <h3>对象</h3>
+    <ul>
+        <li v-for="item in obj">{{ item }}</li>
+    </ul>
+    <ul>
+        <li v-for="(value, key) in obj">{{ key }}：{{ value }}</li>
+    </ul>
+    <ul>
+        <li v-for="(value, key, index) in obj">{{ index }}.{{ key }}：{{ value }}</li>
+    </ul><hr />
+    <h3>v-for和v-if一起使用（不推荐）</h3>
+    <p>一起使用时，v-for的优先级比v-if更高</p>
+    <ul>
+        <li v-for="item in array" v-if="item.num != 0">{{ item.name }} - {{ item.num }}笔</li>
+    </ul>
+    <p><b>缺点：即使改变的是不需要展示的数据，也要重新渲染整个列表，正确的做法是使用计算属性来遍历。</b></p>
+    <ul>
+        <li v-for="item in activeArray">{{ item.name }} - {{ item.num }}笔</li>
+    </ul><hr />
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            array: [
+                {
+                    name: '微信',
+                    num: 10000
+                },
+                {
+                    name: '支付宝',
+                    num: 20000
+                },
+                {
+                    name: '云闪付',
+                    num: 30000
+                },
+                {
+                    name: '其他',
+                    num: 0
+                }
+            ],
+            obj: {
+                targetSys: "WEIXIN",
+                amount: '100元',
+                billDate: '2019-03-26'
+            }
+        },
+        computed: {
+            activeArray () {
+                return this.array.filter(function (item) {
+                    return item.num !== 0
+                })
+            },
+        }
+    })
+</script>
+
+</html>

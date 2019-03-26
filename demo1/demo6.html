@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<body>
+<div id="app">
+    <p><button @click="console.log('讲了很久了')">讲了很久了</button></p>
+    <p><button @click="say('真的讲了很久了')">真的讲了很久了</button></p>
+    <p><button @click="end('快结束了吧', $event)" answer="不可能">快结束了吧</button></p>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        methods: {
+            say(msg) {
+                console.log(msg)
+            },
+            end(msg, event) {
+                console.log(event.target.getAttribute('answer'))
+            }
+        }
+    })
+</script>
+
+</html>

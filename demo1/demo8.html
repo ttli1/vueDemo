@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件基础</title>
+</head>
+<body>
+<div id="app" :style="{fontSize: textFontSize + 'px'}">
+    <p><b>注意：每个组件必须只有一个根元素</b></p>
+    <p>简单组件：<netpay-button></netpay-button></p><hr />
+    <p>通过Prop向子组件传递数据：<netpay-title :title="title"></netpay-title></p><hr />
+    <p>父组件监听子组件事件：<netpay-enlarge-text @enlarge-text="++textFontSize"></netpay-enlarge-text></p><hr />
+    <p>父组件监听子组件事件并传值：<netpay-enlarge-text-v1 @enlarge-text="textFontSize += $event"></netpay-enlarge-text-v1></p><hr />
+    <p>组件上使用v-model：{{ mid }} - <netpay-input v-model="mid"></netpay-input></p><hr />
+    <p><netpay-slot>这里你想写啥就写啥，全都丢到插槽里去</netpay-slot></p><hr />
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.component('netpay-button', {
+        // data必须是一个函数，否则组件复用时，多个示例就共享了同一个data对象
+        data() {
+            return {
+                count: 0
+            }
+        },
+        template: '<button @click="++count">第 {{ count }} 次点击</button>'
+    })
+
+    Vue.component('netpay-title', {
+        props: ['title'],
+        template: '<h3>{{ title }}</h3>'
+    })
+
+    Vue.component('netpay-enlarge-text', {
+        template: '<button @click="$emit(\'enlarge-text\')">放大字体</button>'
+    })
+
+    Vue.component('netpay-enlarge-text-v1', {
+        template: '<button @click="$emit(\'enlarge-text\', 0.1)">慢慢放大字体</button>'
+    })
+
+    Vue.component('netpay-input', {
+        props: ['value'],
+        template: `
+            <input
+                v-bind:value="value"
+                v-on:input="$emit('input', $event.target.value)"
+            >
+        `
+    })
+
+    Vue.component('netpay-slot', {
+        template: `
+            <div>
+              <p>插槽组件</p>
+              <slot></slot>
+            </div>
+        `
+    })
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            title: '网付平台',
+            textFontSize: 16,
+            mid: '898310060514001'
+        }
+    })
+</script>
+
+</html>

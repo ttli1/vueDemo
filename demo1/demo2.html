@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+</head>
+<body>
+<div id="app">
+    <h2>插值</h2>
+    <p>普通文本：{{ rawHtml }}</p>
+    <p>真正的HTML：<span v-html="rawHtml"></span></p>
+    <p>HTML特性：<img :src="imgSrc"></p>
+    <p>JavaScript表达式（只能包含单个表达式）：{{ targetSys.split('，').reverse().join('and')}}</p><hr />
+    <h2>指令（指v-前缀的特殊特性）</h2>
+    <p>v-bind：<img v-bind:src="imgSrc"></p>
+    <p>v-on：<img v-bind:src="imgSrc" v-on:click="alert('你点了一下图片')"></p>
+    <p>动态参数：<img v-bind:[attrname]="imgSrc" v-on:[eventname]="alert('你点了一下图片')"></p><hr />
+    <h2>缩写</h2>
+    <p>"v-bind:"缩写为":"：<img :src="imgSrc"></p>
+    <p>"v-on:"缩写为"@"：<img :src="imgSrc" @click="alert('你点了一下图片')"></p>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            rawHtml: "<span style='color: red'>红色文本</span>",
+            imgSrc: 'https://www.chinaums.com/chinaums/images/logo.png',
+            targetSys: "微信，支付宝，云闪付",
+            attrname: 'src',
+            eventname: 'click'
+        }
+    })
+</script>
+
+</html>

@@ -10,7 +10,7 @@
         <ul>
             <li>{{ targetSys.name }} 交易总笔数 {{ targetSys.num }} 笔</li>
 
-            <!--<li v-for="targetSys in targetSysList">-->
+            <!--<li v-for="targetSys in targetSysArray">-->
                 <!--{{ targetSys.name }} 交易总笔数 {{ targetSys.num }} 笔-->
                 <!--<span v-if="targetSys.num === 0">，该渠道没有交易</span>-->
             <!--</li>-->
@@ -38,7 +38,7 @@
                 name: '微信',
                 num: 10000
             },
-            targetSysList: [
+            targetSysArray: [
                 {
                     name: '微信',
                     num: 10000
@@ -59,12 +59,12 @@
         },
         computed: {
             activeTargetSysList () {
-                return this.targetSysList.filter(function (targetSys) {
+                return this.targetSysArray.filter(function (targetSys) {
                     return targetSys.num !== 0
                 })
             },
             totalNum () {
-                return this.targetSysList.reduce((total, targetSys) => {
+                return this.targetSysArray.reduce((total, targetSys) => {
                     return total + targetSys.num
                 }, 0)
             }

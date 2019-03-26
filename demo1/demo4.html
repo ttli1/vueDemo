@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+</head>
+<body>
+<div id="app">
+    <h2>v-if</h2>
+    <p>支付渠道：
+        <span v-if="targetSys === 'weixin'">微信</span>
+        <span v-else-if="targetSys === 'alipay'">支付宝</span>
+        <span v-else-if="targetSys === 'acp'">银联</span>
+        <span v-else>其他</span>
+    </p><hr />
+    <h2>v-if渲染测试</h2>
+    <p>
+        <span v-if="showImg"><img :src="imgSrc"></span>
+    </p><hr />
+    <h2>v-show渲染测试</h2>
+    <p>
+        <span v-show="showImg"><img :src="imgSrc"></span>
+    </p><hr />
+    <h2>v-if VS v-show</h2>
+    <p>v-if 是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</p>
+    <p>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</p>
+    <p>相比之下，v-show 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。</p>
+    <p><b>一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</b></p><hr />
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            targetSys: "weixin",
+            showImg: true,
+            imgSrc: 'https://www.chinaums.com/chinaums/images/logo.png'
+        }
+    })
+</script>
+
+</html>

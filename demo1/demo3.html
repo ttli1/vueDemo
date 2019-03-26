@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性和侦听器</title>
+</head>
+<body>
+<div id="app">
+    <h2>计算属性vs方法：</h2>
+    <p>计算属性是基于它们的依赖进行缓存的，只在相关依赖发生改变时它们才会重新求值，而方法每次都会执行函数，
+        所以根据你是否需要缓存来选择计算属性或方法。</p><hr />
+    <h2>计算属性vs侦听属性：</h2>
+    <p>计算属性的代码可读性比侦听属性好，不要滥用侦听属性，当需要在数据变化时执行异步或开销较大的操作时，使用侦听属性。</p>
+    <p>微信：{{ weixin }}，支付宝：{{ alipay }}，云闪付：{{ acp }}</p>
+    <p>计算属性：{{ computeTotal }} <button @click="console.log(computeTotal)">总数</button></p>
+    <p>方法：{{ totalFunction() }} <button @click="console.log(totalFunction())">总数</button></p>
+    <p>侦听：{{ total }}</p>
+    <p><button @click="++weixin">发起一笔微信交易</button></p>
+    <p><button @click="++alipay">发起一笔支付宝交易</button></p>
+    <p><button @click="++acp">发起一笔云闪付交易</button></p><hr />
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            weixin: 10000,
+            alipay: 20000,
+            acp: 30000,
+            total: 0
+        },
+        computed: {
+            computeTotal() {
+                console.log('执行计算属性')
+                return this.weixin + this.alipay + this.acp
+            }
+        },
+        methods: {
+            totalFunction() {
+                console.log('执行方法')
+                return this.weixin + this.alipay + this.acp
+            }
+        },
+        watch: {
+            weixin (val) {
+                console.log("侦听器：微信交易笔数改变")
+                this.total = val + this.alipay + this.acp;
+            },
+            alipay (val) {
+                console.log("侦听器：支付宝交易笔数改变")
+                this.total = this.weixin + val + this.acp;
+            },
+            acp (val) {
+                console.log("侦听器：云闪付交易笔数改变")
+                this.total = this.weixin + this.alipay + val;
+            }
+        }
+    })
+</script>
+
+</html>
