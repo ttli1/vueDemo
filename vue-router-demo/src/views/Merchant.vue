@@ -1,12 +1,17 @@
 <template>
-    <div>商户管理</div>
+    <div>
+        <button @click="gotoDetail">商户详情</button>
+    </div>
 </template>
 
 <script>
     export default {
         name: "Merchant",
-        created() {
-            console.log(this.$route.path);
+        methods: {
+            gotoDetail () {
+                console.log('当前路由：' + this.$route.path)
+                this.$router.push('/merchantDetail')
+            }
         }
     }
 </script>
