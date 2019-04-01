@@ -5,6 +5,7 @@
             <router-link to="/merchant">商户管理</router-link>&nbsp;&nbsp;
             <router-link to="/order">订单管理</router-link>
         </p>
+        <hr />
         <router-view></router-view>
     </div>
 </template>
